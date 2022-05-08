@@ -2,13 +2,13 @@ from bs4 import BeautifulSoup
 import requests
 from time import sleep
 import sys
-
+import time
 import winsound
 
 
 arg = sys.argv
 
-checkTime = 8
+checkTime = 60
 
 headers = {"User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36'}
 
@@ -71,7 +71,7 @@ class CheckGPUs:
             Beeper()
         else :
             print(f"[*] {GPU3090name} Carts do not appear")
-            sleep(checkTime)
+            countdown(checkTime)
 
     def gpu3090():
         site = requests.get(gpu3090store, headers=headers)
@@ -95,14 +95,9 @@ class CheckGPUs:
             print(f"[+] {GPU3090name} : {getGPUPrice2} | {gpu3090store}")
             print(f"[+] {gpu3090store}")
             Beeper()
-        elif (getGPUCart3 != None):
-            print(f"[*] {GPU3090name} Can Add cart!!!")
-            print(f"[+] {GPU3090name} : {getGPUPrice3} | {gpu3090store}")
-            print(f"[+] {gpu3090store}")
-            Beeper()
         else :
             print(f"[*] {GPU3090name} Carts do not appear")
-            sleep(checkTime)
+            countdown(checkTime)
 
     def gpu3080():
         site = requests.get(gpu3080store, headers=headers)
@@ -128,7 +123,7 @@ class CheckGPUs:
             Beeper()
         else :
             print(f"[*] {GPU3080name} Carts do not appear")
-            sleep(checkTime)
+            countdown(checkTime)
 
     def gpu3070():
         site = requests.get(gpu3070store, headers=headers)
@@ -159,7 +154,7 @@ class CheckGPUs:
             Beeper()
         else :
             print(f"[*] {GPU3070name} Carts do not appear")
-            sleep(checkTime)
+            countdown(checkTime)
 
     def gpu3060Ti():
         site = requests.get(gpu3060Tistore, headers=headers)
@@ -183,7 +178,7 @@ class CheckGPUs:
             Beeper()
         else :
             print(f"[*] {GPU3060Tiname} Carts do not appear")
-            sleep(checkTime)
+            countdown(checkTime)
 
     def gpu3060():
         site = requests.get(gpu3060store, headers=headers)
@@ -200,12 +195,22 @@ class CheckGPUs:
             Beeper()
         else :
             print(f"[*] {GPU3060name} Carts does not appear")
-            sleep(checkTime)
+            countdown(checkTime)
 
 def Beeper():
     winsound.Beep(600,500)
     winsound.Beep(600,500)
     winsound.Beep(600,1000)
+
+def countdown(t):
+    print(f"[*] Wait for {checkTime} seconds")  
+    while t:
+        mins, secs = divmod(t, 60)
+        timeformat = '{:02d}:{:02d}'.format(mins, secs)
+        print(timeformat, end='\r')
+        time.sleep(1)
+        t -= 1
+  
 
 def sysarg():
     if (arg[1] == "3090"):
