@@ -12,7 +12,10 @@ checkTime = 8
 
 headers = {"User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36'}
 
-gpu3090store = "https://www.evga.com/products/ProductList.aspx?type=0&family=GeForce+30+Series+Family&chipset=RTX+3090" # url of the store, no touchy
+gpu3090Tistore = "https://tw.evga.com/products/ProductList.aspx?type=0&family=GeForce+30+Series+Family&chipset=RTX+3090+Ti" # url of the store, no touchy
+GPU3090Tiname = "GeForce RTX 3090 Ti"
+
+gpu3090store = "https://tw.evga.com/products/ProductList.aspx?type=0&family=GeForce+30+Series+Family&chipset=RTX+3090" # url of the store, no touchy
 GPU3090name = "GeForce RTX 3090"
 
 gpu3080Tistore = "https://tw.evga.com/Products/ProductList.aspx?type=0&family=GeForce+30+Series+Family&chipset=RTX+3080+Ti" # url of the store, no touchy
@@ -33,42 +36,130 @@ GPU3070name = "GeForce RTX 3070"
 gpu3060Tistore = "https://tw.evga.com/Products/ProductList.aspx?type=0&family=GeForce+30+Series+Family&chipset=RTX+3060+Ti" # url of the store, no touchy
 GPU3060Tiname = "GeForce RTX 3060 Ti"
 
-gpu3060store = "https://tw.evga.com/Products/ProductList.aspx?type=0&family=GeForce+30+Series+Family&chipset=RTX+3060+12GB" # url of the store, no touchy
+gpu3060store = "https://tw.evga.com/Products/Product.aspx?pn=12G-P5-3657-KR" # url of the store, no touchy
 GPU3060name = "GeForce RTX 3060"
 
 class CheckGPUs:
+    def gpu3090Ti():
+        site = requests.get(gpu3090Tistore, headers=headers)
+        soup = BeautifulSoup(site.content, 'html.parser')
+
+        getGPUPrice1 = soup.find(id='ctl00_LFrame_prdList_rlvProdGridView_ctrl4_ctrl5_pnlgPriceFinal').get_text()
+        getGPUPrice2 = soup.find(id='ctl00_LFrame_prdList_rlvProdGridView_ctrl4_ctrl6_pnlgPriceFinal').get_text()
+        getGPUPrice3 = soup.find(id='ctl00_LFrame_prdList_rlvProdGridView_ctrl4_ctrl7_pnlgPriceFinal').get_text()
+
+
+        getGPUCart1 = soup.find(id='ctl00_LFrame_prdList_rlvProdGridView_ctrl4_ctrl5_pnlAddCart')
+        getGPUCart2 = soup.find(id='ctl00_LFrame_prdList_rlvProdGridView_ctrl4_ctrl6_pnlAddCart')
+        getGPUCart3 = soup.find(id='ctl00_LFrame_prdList_rlvProdGridView_ctrl4_ctrl7_pnlAddCart')
+
+
+        if (getGPUCart1 != None):
+            print(f"[*] {GPU3090name} Can Add cart!!!")
+            print(f"[+] {GPU3090name} : {getGPUPrice1} | {gpu3090store}")
+            print(f"[+] {gpu3090store}")
+            Beeper()
+        elif (getGPUCart2 != None):
+            print(f"[*] {GPU3090name} Can Add cart!!!")
+            print(f"[+] {GPU3090name} : {getGPUPrice2} | {gpu3090store}")
+            print(f"[+] {gpu3090store}")
+            Beeper()
+        elif (getGPUCart3 != None):
+            print(f"[*] {GPU3090name} Can Add cart!!!")
+            print(f"[+] {GPU3090name} : {getGPUPrice3} | {gpu3090store}")
+            print(f"[+] {gpu3090store}")
+            Beeper()
+        else :
+            print(f"[*] {GPU3090name} Carts do not appear")
+            sleep(checkTime)
+
     def gpu3090():
         site = requests.get(gpu3090store, headers=headers)
         soup = BeautifulSoup(site.content, 'html.parser')
 
-        getGPUPrice = soup.find(id='ctl00_LFrame_lblPrice').get_text()
-        print(f"[*] {GPU3090name} Current Price: {getGPUPrice}")
+        getGPUPrice1 = soup.find(id='ctl00_LFrame_prdList_rlvProdGridView_ctrl7_ctrl9_pnlgPriceFinal').get_text()
+        getGPUPrice2 = soup.find(id='ctl00_LFrame_prdList_rlvProdGridView_ctrl10_ctrl13_pnlgPriceFinal').get_text()
 
-        if (getGPUPrice != "$1739.99"):
-            print(f"[+] GeForce RTX 3090 Price: {getGPUPrice} | {gpu3090store}")
-        sleep(checkTime)
+
+        getGPUCart1 = soup.find(id='ctl00_LFrame_prdList_rlvProdGridView_ctrl7_ctrl9_pnlAddCart')
+        getGPUCart2 = soup.find(id='ctl00_LFrame_prdList_rlvProdGridView_ctrl10_ctrl13_pnlAddCart')
+
+
+        if (getGPUCart1 != None):
+            print(f"[*] {GPU3090name} Can Add cart!!!")
+            print(f"[+] {GPU3090name} : {getGPUPrice1} | {gpu3090store}")
+            print(f"[+] {gpu3090store}")
+            Beeper()
+        elif (getGPUCart2 != None):
+            print(f"[*] {GPU3090name} Can Add cart!!!")
+            print(f"[+] {GPU3090name} : {getGPUPrice2} | {gpu3090store}")
+            print(f"[+] {gpu3090store}")
+            Beeper()
+        elif (getGPUCart3 != None):
+            print(f"[*] {GPU3090name} Can Add cart!!!")
+            print(f"[+] {GPU3090name} : {getGPUPrice3} | {gpu3090store}")
+            print(f"[+] {gpu3090store}")
+            Beeper()
+        else :
+            print(f"[*] {GPU3090name} Carts do not appear")
+            sleep(checkTime)
 
     def gpu3080():
         site = requests.get(gpu3080store, headers=headers)
         soup = BeautifulSoup(site.content, 'html.parser')
 
-        getGPUPrice = soup.find(id='ctl00_LFrame_lblPrice').get_text()
-        print(f"[*] {GPU3080name} Current Price: {getGPUPrice}")
+        getGPUPrice1 = soup.find(id='ctl00_LFrame_prdList_rlvProdGridView_ctrl7_ctrl9_pnlgPriceFinal').get_text()
+        getGPUPrice2 = soup.find(id='ctl00_LFrame_prdList_rlvProdGridView_ctrl11_ctrl15_pnlgPriceFinal').get_text()
 
-        if (getGPUPrice != "$899.99"):
-            print(f"[+] GeForce RTX 3080 Price: {getGPUPrice} | {gpu3080store}")
-        sleep(checkTime)
+
+        getGPUCart1 = soup.find(id='ctl00_LFrame_prdList_rlvProdGridView_ctrl7_ctrl9_pnlAddCart')
+        getGPUCart2 = soup.find(id='ctl00_LFrame_prdList_rlvProdGridView_ctrl11_ctrl15_pnlAddCart')
+
+
+        if (getGPUCart1 != None):
+            print(f"[*] {GPU3080name} Can Add cart!!!")
+            print(f"[+] {GPU3080name} : {getGPUPrice1} | {gpu3080store}")
+            print(f"[+] {gpu3080store}")
+            Beeper()
+        elif (getGPUCart2 != None):
+            print(f"[*] {GPU3080name} Can Add cart!!!")
+            print(f"[+] {GPU3080name} : {getGPUPrice2} | {gpu3080store}")
+            print(f"[+] {gpu3080store}")
+            Beeper()
+        else :
+            print(f"[*] {GPU3080name} Carts do not appear")
+            sleep(checkTime)
 
     def gpu3070():
         site = requests.get(gpu3070store, headers=headers)
         soup = BeautifulSoup(site.content, 'html.parser')
 
-        getGPUPrice = soup.find(id='ctl00_LFrame_prdList_rlvProdGridView_ctrl8_ctrl9_pnlgPriceFinal').get_text()
-        print(f"[*] {GPU3070name} Current Price: {getGPUPrice}")
+        getGPUPrice1 = soup.find(id='ctl00_LFrame_prdList_rlvProdGridView_ctrl0_ctrl1_pnlgPriceFinal').get_text()
+        getGPUPrice2 = soup.find(id='ctl00_LFrame_prdList_rlvProdGridView_ctrl3_ctrl6_pnlgPriceFinal').get_text()
+        getGPUPrice3 = soup.find(id='ctl00_LFrame_prdList_rlvProdGridView_ctrl8_ctrl9_pnlgPriceFinal').get_text()
 
-        if (getGPUPrice != "$709.99"):
-            print(f"[+] GeForce RTX 3070 Price: $709.99 : {getGPUPrice} | {gpu3070store}")
-        sleep(checkTime)
+        getGPUCart1 = soup.find(id='ctl00_LFrame_prdList_rlvProdGridView_ctrl0_ctrl3_pnlAddCart')
+        getGPUCart2 = soup.find(id='ctl00_LFrame_prdList_rlvProdGridView_ctrl3_ctrl6_pnlAddCart')
+        getGPUCart3 = soup.find(id='ctl00_LFrame_prdList_rlvProdGridView_ctrl8_ctrl9_pnlAddCart')
+
+        if (getGPUCart1 != None):
+            print(f"[*] {GPU3070name} Can Add cart!!!")
+            print(f"[+] {GPU3070name} : {getGPUPrice1} | {gpu3070store}")
+            print(f"[+] {gpu3070store}")
+            Beeper()
+        elif (getGPUCart2 != None):
+            print(f"[*] {GPU3070name} Can Add cart!!!")
+            print(f"[+] {GPU3070name} : {getGPUPrice2} | {gpu3070store}")
+            print(f"[+] {gpu3070store}")
+            Beeper()
+        elif (getGPUCart3 != None):
+            print(f"[*] {GPU3070name} Can Add cart!!!")
+            print(f"[+] {GPU3070name} : {getGPUPrice3} | {gpu3070store}")
+            print(f"[+] {gpu3070store}")
+            Beeper()
+        else :
+            print(f"[*] {GPU3070name} Carts do not appear")
+            sleep(checkTime)
 
     def gpu3060Ti():
         site = requests.get(gpu3060Tistore, headers=headers)
@@ -95,15 +186,21 @@ class CheckGPUs:
             sleep(checkTime)
 
     def gpu3060():
-        site = requests.get(gpu3070store, headers=headers)
+        site = requests.get(gpu3060store, headers=headers)
         soup = BeautifulSoup(site.content, 'html.parser')
 
-        getGPUPrice = soup.find(id='LFrame_spanFinalPrice').get_text()
-        print(f"[*] {GPU3060name} Current Price: {getGPUPrice}")
+        getGPUPrice = soup.find(id='ctl00_LFrame_lblPrice').get_text()
 
-        if (getGPUPrice != "$339.99"):
-            print(f"[+] GeForce RTX 3060 Price: {getGPUPrice} | {gpu3060store}")
-        sleep(checkTime)
+        getGPUCart = soup.find(id='ctl00_LFrame_pnlBuy')
+
+        if (getGPUCart != None):
+            print(f"[*] {GPU3060name} Can Add cart!!!")
+            print(f"[+] {GPU3060name} : {getGPUPrice} | {gpu3060store}")
+            print(f"[+] {gpu3060store}")
+            Beeper()
+        else :
+            print(f"[*] {GPU3060name} Carts does not appear")
+            sleep(checkTime)
 
 def Beeper():
     winsound.Beep(600,500)
@@ -127,6 +224,11 @@ def sysarg():
     else:
         print("That GPU isnt added.")
         sys.exit()
+
+def Check3090TiEvga():
+    print("\n")
+    while True:
+        CheckGPUs.gpu3090Ti()
 
 def Check3090Evga():
     print("\n")
